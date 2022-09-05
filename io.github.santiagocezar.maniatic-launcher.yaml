@@ -40,10 +40,11 @@ modules:
       - RSDK_REVISION=3
     post-install:
       - install -Dp -m 755 bin/Linux/SonicMania.so /app/lib/Game.so
+      - ln -s /app/lib/libGame.so ./Game.so
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-        commit: 69ae4f92f0b8248715fa62d627dc3f66bff8aa7d
+        commit: 210351de97fa64a6e7dcdeba3089695ae0794931
         disable-submodules: true
   - name: rsdkv5
     no-autogen: true
@@ -53,14 +54,14 @@ modules:
       cxxflags: '-Wp,-U_FORTIFY_SOURCE'
     make-args:
       - RSDK_ONLY=1
-      - RSDK_REVISION=3
       - AUTOBUILD=1
+      - RSDK_REVISION=3
     post-install:
       - install -Dp -m 755 bin/Linux/GL3/RSDKv5U /app/bin/RSDKv5U
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-        commit: da7d0186f5b0e84a183d048e299b9a9cedf33cf7
+        commit: 21ab14c9a4fd52b9ff4ab0026304bb7d5a0c8123
   - name: blueprint-compiler
     builddir: true
     buildsystem: meson
