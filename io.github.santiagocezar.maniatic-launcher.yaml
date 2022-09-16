@@ -40,11 +40,11 @@ modules:
       - RSDK_REVISION=3
     post-install:
       - install -Dp -m 755 bin/Linux/SonicMania.so /app/lib/Game.so
-      - ln -s /app/lib/libGame.so ./Game.so
+      - ln -s ./Game.so /app/lib/libGame.so
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-        commit: 210351de97fa64a6e7dcdeba3089695ae0794931
+        commit: 640372ff592c7a24d3a34688f7944338b709cd00
         disable-submodules: true
   - name: rsdkv5
     no-autogen: true
@@ -61,7 +61,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-        commit: 21ab14c9a4fd52b9ff4ab0026304bb7d5a0c8123
+        commit: f16dd9ff6b803ae870117b5a01313de5fa6a6040
   - name: blueprint-compiler
     builddir: true
     buildsystem: meson
@@ -75,6 +75,6 @@ modules:
     sources:
       - type: git
         url: https://github.com/santiagocezar/maniatic-launcher.git
-        commit: ea70fd72dbb18a3c4013850646736d02f1cb2d7b
+        commit: 8378e12a4d78ab88a88827d5592ab684ec331c8d
     cleanup:
       - /share/blueprint-compiler
