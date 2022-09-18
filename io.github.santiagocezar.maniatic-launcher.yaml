@@ -12,6 +12,7 @@ finish-args:
   # gamepads
   - --device=all
   # to copy the Data.rsdk from user installed Sonic Mania
+  - --filesystem=xdg-data/Steam:ro
   - --filesystem=~/.steam:ro
   - --filesystem=~/.var/app/com.valvesoftware.Steam:ro
 modules:
