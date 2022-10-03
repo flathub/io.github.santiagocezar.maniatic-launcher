@@ -1,12 +1,13 @@
-
+# experimental wayland version, doesn't work on X11
 app-id: io.github.santiagocezar.maniatic-launcher
 runtime: org.gnome.Platform
-runtime-version: "42"
+runtime-version: "43"
 sdk: org.gnome.Sdk
 command: maniatic
 finish-args:
   - --share=ipc
   - --socket=x11
+  - --socket=wayland
   - --socket=pulseaudio
   - --persist=.
   # gamepads
@@ -16,6 +17,16 @@ finish-args:
   - --filesystem=~/.steam:ro
   - --filesystem=~/.var/app/com.valvesoftware.Steam:ro
 modules:
+  # needed to compile glfw with wayland support
+  - name: extra-cmake-modules
+    cleanup-platform: ["*"]
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DBUILD_TESTING=OFF"
+    sources:
+      - type: git
+        url: https://invent.kde.org/frameworks/extra-cmake-modules.git
+        tag: v5.98.0
   - name: glfw
     buildsystem: cmake-ninja
     config-opts:
@@ -23,6 +34,7 @@ modules:
       - -DBUILD_SHARED_LIBS:BOOL=ON
       - -DBUILD_GLFW_EXAMPLES:BOOL=OFF
       - -DBUILD_GLFW_DOCS:BOOL=OFF
+      - -DGLFW_USE_WAYLAND:BOOL=ON
     sources:
       - type: archive
         url: https://github.com/glfw/glfw/releases/download/3.3.8/glfw-3.3.8.zip
@@ -31,8 +43,34 @@ modules:
       - /include
       - /lib/cmake
       - /lib/pkgconfig
-  - shared-modules/glew/glew.json
   - shared-modules/glu/glu-9.json
+  # uses Arch Linux EGL patches, 
+  - name: glew
+    no-autogen: true
+    make-args:
+      - GLEW_DEST=${FLATPAK_DEST}
+      - GLEW_PREFIX=${FLATPAK_DEST}
+      - SYSTEM=linux-egl
+      - LIBDIR=${FLATPAK_DEST}/lib
+      - glew.lib.shared
+    make-install-args:
+      - GLEW_DEST=${FLATPAK_DEST}
+      - GLEW_PREFIX=${FLATPAK_DEST}
+      - LIBDIR=${FLATPAK_DEST}/lib
+      - SYSTEM=linux-egl
+    sources:
+      - type: archive
+        url: https://downloads.sourceforge.net/project/glew/glew/2.2.0/glew-2.2.0.tgz
+        sha256: d4fc82893cfb00109578d0a1a2337fb8ca335b3ceccf97b97e5cc7f08e4353e1
+      - type: patch
+        path: glew-install.patch
+      - type: patch
+        path: egl+glx.patch
+    cleanup:
+      - "/include"
+      - "/lib/pkgconfig"
+      - "/lib/*.a"
+
   - name: mania
     no-autogen: true
     no-make-install: true
@@ -45,7 +83,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-        commit: 640372ff592c7a24d3a34688f7944338b709cd00
+        commit: 1d31ad246225c651125114715eba56ad38241ca9
         disable-submodules: true
   - name: rsdkv5
     no-autogen: true
@@ -60,9 +98,11 @@ modules:
     post-install:
       - install -Dp -m 755 bin/Linux/GL3/RSDKv5U /app/bin/RSDKv5U
     sources:
-      - type: git
-        url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-        commit: f16dd9ff6b803ae870117b5a01313de5fa6a6040
+      - type: dir
+        path: /home/santi/.local/opt/RSDKv5-Decompilation
+      # - type: git
+      #   url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
+      #   commit: 4a458a043dfd6122d11782ad190aac45867e1245
   - name: blueprint-compiler
     builddir: true
     buildsystem: meson
