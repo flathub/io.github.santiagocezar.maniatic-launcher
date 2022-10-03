@@ -98,11 +98,9 @@ modules:
     post-install:
       - install -Dp -m 755 bin/Linux/GL3/RSDKv5U /app/bin/RSDKv5U
     sources:
-      - type: dir
-        path: /home/santi/.local/opt/RSDKv5-Decompilation
-      # - type: git
-      #   url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-      #   commit: 4a458a043dfd6122d11782ad190aac45867e1245
+      - type: git
+        url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
+        commit: 4a458a043dfd6122d11782ad190aac45867e1245
   - name: blueprint-compiler
     builddir: true
     buildsystem: meson
