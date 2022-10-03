@@ -1,7 +1,7 @@
 
 app-id: io.github.santiagocezar.maniatic-launcher
 runtime: org.gnome.Platform
-runtime-version: "42"
+runtime-version: "43"
 sdk: org.gnome.Sdk
 command: maniatic
 finish-args:
@@ -45,7 +45,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-        commit: 640372ff592c7a24d3a34688f7944338b709cd00
+        commit: 86fc1590ad75ffbb1455ef4f2782fa0e7cae9236
         disable-submodules: true
   - name: rsdkv5
     no-autogen: true
@@ -62,7 +62,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-        commit: f16dd9ff6b803ae870117b5a01313de5fa6a6040
+        commit: ca775a2a6c4cf4f0b0be62104e12ad41ac527bae
   - name: blueprint-compiler
     builddir: true
     buildsystem: meson
