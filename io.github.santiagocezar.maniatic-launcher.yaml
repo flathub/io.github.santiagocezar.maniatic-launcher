@@ -45,14 +45,14 @@ modules:
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-        commit: 86fc1590ad75ffbb1455ef4f2782fa0e7cae9236
+        commit: 720b1416e28163785b9fd02c5b6c4d47b97e6258
         disable-submodules: true
   - name: rsdkv5
     no-autogen: true
     no-make-install: true
-    build-options:
+    # build-options:
       # the _FORTIFY_SOURCE=2 default caused problems in logging and config file writing
-      cxxflags: '-Wp,-U_FORTIFY_SOURCE'
+      # cxxflags: '-Wp,-U_FORTIFY_SOURCE'
     make-args:
       - RSDK_ONLY=1
       - AUTOBUILD=1
@@ -62,7 +62,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-        commit: ca775a2a6c4cf4f0b0be62104e12ad41ac527bae
+        commit: af09657a499d645bf53504244b389eddda1d24c2
   - name: blueprint-compiler
     builddir: true
     buildsystem: meson
