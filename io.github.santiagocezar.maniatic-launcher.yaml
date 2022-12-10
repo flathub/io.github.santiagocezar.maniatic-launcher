@@ -45,7 +45,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-        commit: 720b1416e28163785b9fd02c5b6c4d47b97e6258
+        commit: e74c0005fba8ffcfd150205beef73a954222d38b
         disable-submodules: true
   - name: rsdkv5
     no-autogen: true
@@ -58,11 +58,11 @@ modules:
       - AUTOBUILD=1
       - RSDK_REVISION=3
     post-install:
-      - install -Dp -m 755 bin/Linux/GL3/RSDKv5U /app/bin/RSDKv5U
+      - install -Dp -m 755 bin/Linux/OGL/RSDKv5U /app/bin/RSDKv5U
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-        commit: af09657a499d645bf53504244b389eddda1d24c2
+        commit: c7164fb06b1a0b1f595096476ecee8e1985da177
   - name: blueprint-compiler
     builddir: true
     buildsystem: meson
