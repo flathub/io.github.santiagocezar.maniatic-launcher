@@ -50,9 +50,10 @@ modules:
   - name: rsdkv5
     no-autogen: true
     no-make-install: true
-    # build-options:
-      # the _FORTIFY_SOURCE=2 default caused problems in logging and config file writing
-      # cxxflags: '-Wp,-U_FORTIFY_SOURCE'
+    build-options:
+      # the _FORTIFY_SOURCE=2 default still causes problems in logging and config file writing
+      # tought this got fixed
+      cxxflags: '-Wp,-U_FORTIFY_SOURCE'
     make-args:
       - RSDK_ONLY=1
       - AUTOBUILD=1
