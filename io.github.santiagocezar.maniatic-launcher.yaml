@@ -41,7 +41,6 @@ modules:
       - RSDK_REVISION=3
     post-install:
       - install -Dp -m 755 bin/Linux/SonicMania.so /app/lib/Game.so
-      - ln -s ./Game.so /app/lib/libGame.so
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
@@ -52,7 +51,7 @@ modules:
     no-make-install: true
     build-options:
       # the _FORTIFY_SOURCE=2 default still causes problems in logging and config file writing
-      # tought this got fixed
+      # thought this got fixed
       cxxflags: '-Wp,-U_FORTIFY_SOURCE'
     make-args:
       - RSDK_ONLY=1
@@ -63,7 +62,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-        commit: c7164fb06b1a0b1f595096476ecee8e1985da177
+        commit: a207eb67d605028b1488b4290c589962c487e9a3
   - name: blueprint-compiler
     builddir: true
     buildsystem: meson
