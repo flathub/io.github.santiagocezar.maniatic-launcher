@@ -59,10 +59,14 @@ modules:
       - RSDK_REVISION=3
     post-install:
       - install -Dp -m 755 bin/Linux/OGL/RSDKv5U /app/bin/RSDKv5U
+      - install -Dp -m 644 RSDKv5/Shaders/OGL/* -t /app/share/OpenGL-Shaders/Data/Shaders/OGL
+      - install -Dp -m 644 ogl-shader-mod.ini /app/share/OpenGL-Shaders/mod.ini
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
         commit: a207eb67d605028b1488b4290c589962c487e9a3
+      - type: file
+        path: ogl-shader-mod.ini
   - name: blueprint-compiler
     builddir: true
     buildsystem: meson
@@ -76,6 +80,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/santiagocezar/maniatic-launcher.git
-        commit: 8378e12a4d78ab88a88827d5592ab684ec331c8d
+        commit: a5f247bb195905d8d916647c27014582cdbac7ef
+      # url: https://github.com/santiagocezar/maniatic-launcher.git
     cleanup:
       - /share/blueprint-compiler
