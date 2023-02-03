@@ -41,18 +41,17 @@ modules:
       - RSDK_REVISION=3
     post-install:
       - install -Dp -m 755 bin/Linux/SonicMania.so /app/lib/Game.so
-      - ln -s ./Game.so /app/lib/libGame.so
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-        commit: e74c0005fba8ffcfd150205beef73a954222d38b
+        commit: 0f75401660c9d94f84d364679024afdad6a59d87
         disable-submodules: true
   - name: rsdkv5
     no-autogen: true
     no-make-install: true
     build-options:
       # the _FORTIFY_SOURCE=2 default still causes problems in logging and config file writing
-      # tought this got fixed
+      # thought this got fixed
       cxxflags: '-Wp,-U_FORTIFY_SOURCE'
     make-args:
       - RSDK_ONLY=1
@@ -60,10 +59,14 @@ modules:
       - RSDK_REVISION=3
     post-install:
       - install -Dp -m 755 bin/Linux/OGL/RSDKv5U /app/bin/RSDKv5U
+      - install -Dp -m 644 RSDKv5/Shaders/OGL/* -t /app/share/OpenGL-Shaders/Data/Shaders/OGL
+      - install -Dp -m 644 ogl-shader-mod.ini /app/share/OpenGL-Shaders/mod.ini
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-        commit: c7164fb06b1a0b1f595096476ecee8e1985da177
+        commit: a207eb67d605028b1488b4290c589962c487e9a3
+      - type: file
+        path: ogl-shader-mod.ini
   - name: blueprint-compiler
     builddir: true
     buildsystem: meson
@@ -77,6 +80,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/santiagocezar/maniatic-launcher.git
-        commit: 8378e12a4d78ab88a88827d5592ab684ec331c8d
+        commit: a5f247bb195905d8d916647c27014582cdbac7ef
+      # url: https://github.com/santiagocezar/maniatic-launcher.git
     cleanup:
       - /share/blueprint-compiler
