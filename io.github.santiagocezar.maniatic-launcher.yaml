@@ -44,7 +44,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-        commit: 0f75401660c9d94f84d364679024afdad6a59d87
+        commit: 4ef543749a29f17ce904217140c8bbff6eea3e77
         disable-submodules: true
   - name: rsdkv5
     no-autogen: true
@@ -64,7 +64,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-        commit: a207eb67d605028b1488b4290c589962c487e9a3
+        commit: 6f382203419847704ddba07dc210685c49ad9ce7
       - type: file
         path: ogl-shader-mod.ini
   - name: blueprint-compiler
