@@ -7,6 +7,9 @@ command: maniatic
 finish-args:
   - --share=ipc
   - --socket=x11
+  # works when using SDL2
+  - --socket=wayland
+  - --env=SDL_VIDEODRIVER=wayland,x11
   - --socket=pulseaudio
   - --persist=.
   # gamepads
@@ -16,55 +19,30 @@ finish-args:
   - --filesystem=~/.steam:ro
   - --filesystem=~/.var/app/com.valvesoftware.Steam:ro
 modules:
-  - name: glfw
-    buildsystem: cmake-ninja
-    config-opts:
-      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-      - -DBUILD_SHARED_LIBS:BOOL=ON
-      - -DBUILD_GLFW_EXAMPLES:BOOL=OFF
-      - -DBUILD_GLFW_DOCS:BOOL=OFF
-    sources:
-      - type: archive
-        url: https://github.com/glfw/glfw/releases/download/3.3.8/glfw-3.3.8.zip
-        sha256: 4d025083cc4a3dd1f91ab9b9ba4f5807193823e565a5bcf4be202669d9911ea6
-    cleanup:
-      - /include
-      - /lib/cmake
-      - /lib/pkgconfig
-  - shared-modules/glew/glew.json
-  - shared-modules/glu/glu-9.json
   - name: mania
     no-autogen: true
     no-make-install: true
-    make-args:
-      - STATIC=0
-      - RSDK_REVISION=3
+    buildsystem: cmake-ninja
+    builddir: true
+    build-options:
+      cxxflags: '-Wp,-U_FORTIFY_SOURCE'
+    config-opts:
+      - -DRETRO_DISABLE_PLUS=ON
+      - -DRETRO_SUBSYSTEM=SDL2
     post-install:
-      - install -Dp -m 755 bin/Linux/SonicMania.so /app/lib/Game.so
+      - install -Dp -m 755 "$FLATPAK_BUILDER_BUILDDIR/_flatpak_build/dependencies/RSDKv5/libGame.so" /app/lib/Game.so
+      - install -Dp -m 755 "$FLATPAK_BUILDER_BUILDDIR/_flatpak_build/dependencies/RSDKv5/RSDKv5U" /app/bin/RSDKv5U
+      - install -Dp -m 644 "$FLATPAK_BUILDER_BUILDDIR/dependencies/RSDKv5/RSDKv5/Shaders/OGL/"* -t /app/share/OpenGL-Shaders/Data/Shaders/OGL
+      - install -Dp -m 644 "$FLATPAK_BUILDER_BUILDDIR/ogl-shader-mod.ini" /app/share/OpenGL-Shaders/mod.ini
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-        commit: 4ef543749a29f17ce904217140c8bbff6eea3e77
+        commit: ca126a0ab5e5e9159b680f5e694cd937b38f80da
         disable-submodules: true
-  - name: rsdkv5
-    no-autogen: true
-    no-make-install: true
-    build-options:
-      # the _FORTIFY_SOURCE=2 default still causes problems in logging and config file writing
-      # thought this got fixed
-      cxxflags: '-Wp,-U_FORTIFY_SOURCE'
-    make-args:
-      - RSDK_ONLY=1
-      - AUTOBUILD=1
-      - RSDK_REVISION=3
-    post-install:
-      - install -Dp -m 755 bin/Linux/OGL/RSDKv5U /app/bin/RSDKv5U
-      - install -Dp -m 644 RSDKv5/Shaders/OGL/* -t /app/share/OpenGL-Shaders/Data/Shaders/OGL
-      - install -Dp -m 644 ogl-shader-mod.ini /app/share/OpenGL-Shaders/mod.ini
-    sources:
       - type: git
         url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-        commit: 6f382203419847704ddba07dc210685c49ad9ce7
+        commit: 3b5cda690287376d45c15a49c027ec077560e08b
+        dest: dependencies/RSDKv5
       - type: file
         path: ogl-shader-mod.ini
   - name: blueprint-compiler
@@ -81,6 +59,5 @@ modules:
       - type: git
         url: https://github.com/santiagocezar/maniatic-launcher.git
         commit: a5f247bb195905d8d916647c27014582cdbac7ef
-      # url: https://github.com/santiagocezar/maniatic-launcher.git
     cleanup:
       - /share/blueprint-compiler
