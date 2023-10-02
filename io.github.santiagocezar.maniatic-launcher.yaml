@@ -1,7 +1,7 @@
 
 app-id: io.github.santiagocezar.maniatic-launcher
 runtime: org.gnome.Platform
-runtime-version: "43"
+runtime-version: "44"
 sdk: org.gnome.Sdk
 command: maniatic
 finish-args:
