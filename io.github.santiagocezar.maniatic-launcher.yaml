@@ -1,21 +1,22 @@
 
 app-id: io.github.santiagocezar.maniatic-launcher
 runtime: org.gnome.Platform
-runtime-version: "44"
+runtime-version: "45"
 sdk: org.gnome.Sdk
 command: maniatic
 finish-args:
   - --share=ipc
-  - --socket=x11
   # works when using SDL2
   - --socket=wayland
+  - --socket=fallback-x11
   - --env=SDL_VIDEODRIVER=wayland,x11
   - --socket=pulseaudio
   - --persist=.
   # gamepads
   - --device=all
   # to copy the Data.rsdk from user installed Sonic Mania
-  - --filesystem=xdg-data/Steam:ro
+  # - --filesystem=xdg-data/Steam:ro
+  # disabled temporally until the exception is accepted
   - --filesystem=~/.steam:ro
   - --filesystem=~/.var/app/com.valvesoftware.Steam:ro
 modules:
@@ -37,11 +38,11 @@ modules:
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-        commit: ca126a0ab5e5e9159b680f5e694cd937b38f80da
+        commit: c417ccad32945075a283f74429a3a09cd501734d
         disable-submodules: true
       - type: git
         url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-        commit: 3b5cda690287376d45c15a49c027ec077560e08b
+        commit: 64df5c1b3cb0583e2f88a4b8a909294e4e15cbdb
         dest: dependencies/RSDKv5
       - type: file
         path: ogl-shader-mod.ini
@@ -58,6 +59,6 @@ modules:
     sources:
       - type: git
         url: https://github.com/santiagocezar/maniatic-launcher.git
-        commit: a5f247bb195905d8d916647c27014582cdbac7ef
+        commit: 06bdf2233df4ddf1690e078b826d775fb7b82294
     cleanup:
       - /share/blueprint-compiler
