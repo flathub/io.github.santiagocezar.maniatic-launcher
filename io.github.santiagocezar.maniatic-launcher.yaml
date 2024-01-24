@@ -6,16 +6,17 @@ sdk: org.gnome.Sdk
 command: maniatic
 finish-args:
   - --share=ipc
-  - --socket=x11
   # works when using SDL2
   - --socket=wayland
+  - --socket=fallback-x11
   - --env=SDL_VIDEODRIVER=wayland,x11
   - --socket=pulseaudio
   - --persist=.
   # gamepads
   - --device=all
   # to copy the Data.rsdk from user installed Sonic Mania
-  - --filesystem=xdg-data/Steam:ro
+  # - --filesystem=xdg-data/Steam:ro
+  # disabled temporally until the exception is accepted
   - --filesystem=~/.steam:ro
   - --filesystem=~/.var/app/com.valvesoftware.Steam:ro
 modules:
