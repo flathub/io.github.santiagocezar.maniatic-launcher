@@ -1,7 +1,7 @@
 
 app-id: io.github.santiagocezar.maniatic-launcher
 runtime: org.gnome.Platform
-runtime-version: "44"
+runtime-version: "45"
 sdk: org.gnome.Sdk
 command: maniatic
 finish-args:
@@ -37,11 +37,11 @@ modules:
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-        commit: ca126a0ab5e5e9159b680f5e694cd937b38f80da
+        commit: c417ccad32945075a283f74429a3a09cd501734d
         disable-submodules: true
       - type: git
         url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-        commit: 3b5cda690287376d45c15a49c027ec077560e08b
+        commit: 64df5c1b3cb0583e2f88a4b8a909294e4e15cbdb
         dest: dependencies/RSDKv5
       - type: file
         path: ogl-shader-mod.ini
