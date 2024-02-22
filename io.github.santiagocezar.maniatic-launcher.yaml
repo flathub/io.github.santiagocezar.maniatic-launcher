@@ -57,6 +57,6 @@ modules:
     sources:
       - type: git
         url: https://github.com/santiagocezar/maniatic-launcher.git
-        commit: 5b4c4a3cdaf9b47f0268321ddfa3c60fd6afc024
+        commit: 7f071776afdedc04a08538b541dd7517946a9f9d
     cleanup:
       - /share/blueprint-compiler
