@@ -36,11 +36,11 @@ modules:
     sources:
       - type: git
         url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-        commit: 2e2b1311ad0a71b24a588a4086c70a3a0659b0de
+        commit: dea6cd2062ed69d2715845ef452ce69d6b20c4a7
         disable-submodules: true
       - type: git
         url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-        commit: 32b1ca3d20df9f1b3c1013489e022fa7a0902e8b
+        commit: 149252eb13e271b343a13847199be3a0118e5bf4
         dest: dependencies/RSDKv5
       - type: file
         path: ogl-shader-mod.ini
