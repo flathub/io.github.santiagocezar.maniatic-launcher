@@ -6,6 +6,8 @@ sdk: org.gnome.Sdk
 command: maniatic
 finish-args:
   - --share=ipc
+  # needed to download mods
+  - --share=network
   # works when using SDL2
   - --socket=wayland
   - --socket=fallback-x11
@@ -16,7 +18,7 @@ finish-args:
   - --device=all
   # to copy the Data.rsdk from user installed Sonic Mania
   - --filesystem=~/.local/share/Steam/steamapps/common/Sonic Mania/Data.rsdk:ro
-  - --filesystem=~/.var/app/com.valvesoftware.Steam/data/Steam/steamapps/common/Sonic Mania/:ro
+  - --filesystem=~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Sonic Mania/:ro
 modules:
   - name: mania
     no-autogen: true
@@ -50,13 +52,13 @@ modules:
     sources:
       - type: git
         url: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
-        tag: v0.2.0
+        tag: v0.10.0
     cleanup: ['*']
   - name: launcher
     buildsystem: meson
     sources:
       - type: git
         url: https://github.com/santiagocezar/maniatic-launcher.git
-        commit: 7f071776afdedc04a08538b541dd7517946a9f9d
+        commit: cfc052f3aba2485ec75e9ab8615e337cc96b8f9a
     cleanup:
       - /share/blueprint-compiler
