@@ -1,64 +1,67 @@
-
 app-id: io.github.santiagocezar.maniatic-launcher
 runtime: org.gnome.Platform
-runtime-version: "45"
+runtime-version: '45'
 sdk: org.gnome.Sdk
 command: maniatic
 finish-args:
-  - --share=ipc
+- --share=ipc
   # needed to download mods
-  - --share=network
+- --share=network
   # works when using SDL2
-  - --socket=wayland
-  - --socket=fallback-x11
-  - --env=SDL_VIDEODRIVER=wayland,x11
-  - --socket=pulseaudio
-  - --persist=.
+- --socket=wayland
+- --socket=fallback-x11
+- --env=SDL_VIDEODRIVER=wayland,x11
+- --socket=pulseaudio
+- --persist=.
   # gamepads
-  - --device=all
+- --device=all
   # to copy the Data.rsdk from user installed Sonic Mania
-  - --filesystem=~/.local/share/Steam/steamapps/common/Sonic Mania/Data.rsdk:ro
-  - --filesystem=~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Sonic Mania/:ro
+- --filesystem=~/.local/share/Steam/steamapps/common/Sonic Mania/Data.rsdk:ro
+- --filesystem=~/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Sonic
+  Mania/:ro
 modules:
-  - name: mania
-    no-autogen: true
-    no-make-install: true
-    buildsystem: cmake-ninja
-    builddir: true
-    build-options:
-      cxxflags: '-Wp,-U_FORTIFY_SOURCE'
-    config-opts:
-      - -DRETRO_DISABLE_PLUS=ON
-      - -DRETRO_SUBSYSTEM=SDL2
-    post-install:
-      - install -Dp -m 755 "$FLATPAK_BUILDER_BUILDDIR/_flatpak_build/dependencies/RSDKv5/libGame.so" /app/lib/Game.so
-      - install -Dp -m 755 "$FLATPAK_BUILDER_BUILDDIR/_flatpak_build/dependencies/RSDKv5/RSDKv5U" /app/bin/RSDKv5U
-      - install -Dp -m 644 "$FLATPAK_BUILDER_BUILDDIR/dependencies/RSDKv5/RSDKv5/Shaders/OGL/"* -t /app/share/OpenGL-Shaders/Data/Shaders/OGL
-      - install -Dp -m 644 "$FLATPAK_BUILDER_BUILDDIR/ogl-shader-mod.ini" /app/share/OpenGL-Shaders/mod.ini
-    sources:
-      - type: git
-        url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-        commit: 8278952deec0e5acbe3a0d5bd3a7bac4c297e65a
-        disable-submodules: true
-      - type: git
-        url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-        commit: 149252eb13e271b343a13847199be3a0118e5bf4
-        dest: dependencies/RSDKv5
-      - type: file
-        path: ogl-shader-mod.ini
-  - name: blueprint-compiler
-    builddir: true
-    buildsystem: meson
-    sources:
-      - type: git
-        url: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
-        tag: v0.10.0
-    cleanup: ['*']
-  - name: launcher
-    buildsystem: meson
-    sources:
-      - type: git
-        url: https://github.com/santiagocezar/maniatic-launcher.git
-        commit: cfc052f3aba2485ec75e9ab8615e337cc96b8f9a
-    cleanup:
-      - /share/blueprint-compiler
+- name: mania
+  no-autogen: true
+  no-make-install: true
+  buildsystem: cmake-ninja
+  builddir: true
+  build-options:
+    cxxflags: -Wp,-U_FORTIFY_SOURCE
+  config-opts:
+  - -DRETRO_DISABLE_PLUS=ON
+  - -DRETRO_SUBSYSTEM=SDL2
+  post-install:
+  - install -Dp -m 755 "$FLATPAK_BUILDER_BUILDDIR/_flatpak_build/dependencies/RSDKv5/libGame.so"
+    /app/lib/Game.so
+  - install -Dp -m 755 "$FLATPAK_BUILDER_BUILDDIR/_flatpak_build/dependencies/RSDKv5/RSDKv5U"
+    /app/bin/RSDKv5U
+  - install -Dp -m 644 "$FLATPAK_BUILDER_BUILDDIR/dependencies/RSDKv5/RSDKv5/Shaders/OGL/"*
+    -t /app/share/OpenGL-Shaders/Data/Shaders/OGL
+  - install -Dp -m 644 "$FLATPAK_BUILDER_BUILDDIR/ogl-shader-mod.ini" /app/share/OpenGL-Shaders/mod.ini
+  sources:
+  - type: git
+    url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
+    commit: 8278952deec0e5acbe3a0d5bd3a7bac4c297e65a
+    disable-submodules: true
+  - type: git
+    url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
+    commit: fc451f8460f879680c7a88e2e59341955a9140c2
+    dest: dependencies/RSDKv5
+  - type: file
+    path: ogl-shader-mod.ini
+- name: blueprint-compiler
+  builddir: true
+  buildsystem: meson
+  sources:
+  - type: git
+    url: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
+    tag: v0.10.0
+  cleanup: ['*']
+- name: launcher
+  buildsystem: meson
+  sources:
+  - type: git
+    url: https://github.com/santiagocezar/maniatic-launcher.git
+    commit: cfc052f3aba2485ec75e9ab8615e337cc96b8f9a
+  cleanup:
+  - /share/blueprint-compiler
