@@ -41,7 +41,7 @@ modules:
   sources:
   - type: git
     url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-    commit: 8278952deec0e5acbe3a0d5bd3a7bac4c297e65a
+    commit: 7b6681f5617b0cf7d5149c173b2f5fc35c2a9077
     disable-submodules: true
   - type: git
     url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
