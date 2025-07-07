@@ -1,6 +1,6 @@
 app-id: io.github.santiagocezar.maniatic-launcher
 runtime: org.gnome.Platform
-runtime-version: '45'
+runtime-version: '48'
 sdk: org.gnome.Sdk
 command: maniatic
 finish-args:
@@ -41,11 +41,11 @@ modules:
   sources:
   - type: git
     url: https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation.git
-    commit: 8278952deec0e5acbe3a0d5bd3a7bac4c297e65a
+    commit: 06219bec3e6b23e6eae48589fa19cea26baf8065
     disable-submodules: true
   - type: git
     url: https://github.com/Rubberduckycooly/RSDKv5-Decompilation.git
-    commit: fc451f8460f879680c7a88e2e59341955a9140c2
+    commit: 2473e838aba7cee4a881b6d94224f5f02f93d51c
     dest: dependencies/RSDKv5
   - type: file
     path: ogl-shader-mod.ini
@@ -55,13 +55,13 @@ modules:
   sources:
   - type: git
     url: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
-    tag: v0.10.0
+    tag: v0.18.0
   cleanup: ['*']
 - name: launcher
   buildsystem: meson
   sources:
   - type: git
     url: https://github.com/santiagocezar/maniatic-launcher.git
-    commit: cfc052f3aba2485ec75e9ab8615e337cc96b8f9a
+    commit: 8644d087087ec7f69f73b6df4ff2513acbc32ca8
   cleanup:
   - /share/blueprint-compiler
